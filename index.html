@@ -83,7 +83,140 @@ button {
 <script>
 let score = 0;
 
+ <!DOCTYPE html>
+<html>
+<head>
+<title>For Bub ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+  overflow: hidden;
+}
+
+h1 {
+  margin-top: 80px;
+  color: white;
+  font-size: 2em;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+#startBtn {
+  background-color: white;
+  color: #ff4d6d;
+}
+
+.heart {
+  position: absolute;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+#game {
+  display: none;
+}
+
+#proposal {
+  display: none;
+}
+
+#yesBtn {
+  background-color: #ff4d6d;
+  color: white;
+}
+
+#noBtn {
+  background-color: gray;
+  color: white;
+  position: relative;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Hidden YouTube Background Music -->
+
+<h1 id="intro">Hey Bub 💕<br>I made something just for you 😌<br>Click below to start</h1>
+<button id="startBtn" onclick="startGame()">Start Game</button>
+
+<div id="game">
+  <h1>Catch 10 hearts to unlock something special ❤️</h1>
+</div>
+
+<div id="proposal">
+  <h1>Bub… will you be my Valentine? 💖</h1>
+  <button id="yesBtn" onclick="sayYes()">YESSSS 💕</button>
+  <button id="noBtn" onmouseover="moveNo()">No 😢</button>
+</div>
+<audio id="bgMusic" loop>
+  <audio id="bgMusic" loop>
+  <source src="04._-_George_Benson_-_Nothing_s_Gonna_Change_My_Love_For_You_(mp3.pm).mp3" type="audio/mpeg">
+</audio>
+</audio>
+<script>
+let score = 0;
+
 function startGame() {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("startBtn").style.display = "none";
+  document.getElementById("game").style.display = "block";
+  spawnHearts();
+}
+
+function spawnHearts() {
+  let heart = document.createElement("div");
+  heart.innerHTML = "❤️";
+  heart.classList.add("heart");
+
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.top = Math.random() * window.innerHeight + "px";
+
+  heart.onclick = function() {
+    heart.remove();
+    score++;
+    if(score >= 10){
+      showProposal();
+    }
+  };
+
+  document.body.appendChild(heart);
+
+  if(score < 10){
+    setTimeout(spawnHearts, 800);
+  }
+}
+
+function showProposal(){
+  document.getElementById("game").style.display = "none";
+  document.getElementById("proposal").style.display = "block";
+}
+
+function moveNo(){
+  let noBtn = document.getElementById("noBtn");
+  noBtn.style.position = "absolute";
+  noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+  noBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
+
+function sayYes(){
+  document.body.innerHTML = "<h1 style='margin-top:150px;color:white;'>Bub 💕<br>You just made me the happiest person alive 😭❤️<br>Nothing’s ever gonna change my love for you 💖</h1>";
+}
+</script>
+
+</body>
+</html>
   document.getElementById("intro").style.display = "none";
   document.getElementById("startBtn").style.display = "none";
   document.getElementById("game").style.display = "block";
