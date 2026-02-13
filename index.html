@@ -1,3 +1,4 @@
+html
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,8 +62,6 @@ button {
 
 <body>
 
-<!-- Hidden YouTube Background Music -->
-
 <h1 id="intro">Hey Bub 💕<br>I made something just for you 😌<br>Click below to start</h1>
 <button id="startBtn" onclick="startGame()">Start Game</button>
 
@@ -75,14 +74,22 @@ button {
   <button id="yesBtn" onclick="sayYes()">YESSSS 💕</button>
   <button id="noBtn" onmouseover="moveNo()">No 😢</button>
 </div>
+
+<!-- FIXED: Removed nested audio tag and ensured ID is unique -->
 <audio id="bgMusic" loop>
   <source src="04._-_George_Benson_-_Nothing_s_Gonna_Change_My_Love_For_You_(mp3.pm).mp3" type="audio/mpeg">
 </audio>
+
 <script>
 let score = 0;
 
 function startGame() {
-  document.getElementById("bgMusic").play(); // <--- Add this line
+  // FIXED: Trigger music play here on user interaction
+  let music = document.getElementById("bgMusic");
+  music.play().catch(error => {
+    console.log("Audio failed to play. Check file path or console for errors.");
+  });
+
   document.getElementById("intro").style.display = "none";
   document.getElementById("startBtn").style.display = "none";
   document.getElementById("game").style.display = "block";
@@ -94,8 +101,8 @@ function spawnHearts() {
   heart.innerHTML = "❤️";
   heart.classList.add("heart");
 
-  heart.style.left = Math.random() * window.innerWidth + "px";
-  heart.style.top = Math.random() * window.innerHeight + "px";
+  heart.style.left = Math.random() * (window.innerWidth - 40) + "px";
+  heart.style.top = Math.random() * (window.innerHeight - 40) + "px";
 
   heart.onclick = function() {
     heart.remove();
