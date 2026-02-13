@@ -62,11 +62,6 @@ button {
 <body>
 
 <!-- Hidden YouTube Background Music -->
-<iframe width="0" height="0"
-src="https://www.youtube.com/embed/3FZ4qO8bHnA?autoplay=1&loop=1&playlist=3FZ4qO8bHnA"
-frameborder="0"
-allow="autoplay">
-</iframe>
 
 <h1 id="intro">Hey Bub 💕<br>I made something just for you 😌<br>Click below to start</h1>
 <button id="startBtn" onclick="startGame()">Start Game</button>
@@ -80,7 +75,9 @@ allow="autoplay">
   <button id="yesBtn" onclick="sayYes()">YESSSS 💕</button>
   <button id="noBtn" onmouseover="moveNo()">No 😢</button>
 </div>
-
+<audio id="bgMusic" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
 <script>
 let score = 0;
 
