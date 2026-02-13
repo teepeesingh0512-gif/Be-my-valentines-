@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
 <title>For Bub ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,6 +56,14 @@ button {
   color: white;
   position: relative;
 }
+
+/* Hide the YouTube player from view */
+#yt-player {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  visibility: hidden;
+}
 </style>
 </head>
 
@@ -73,20 +82,38 @@ button {
   <button id="noBtn" onmouseover="moveNo()">No 😢</button>
 </div>
 
-<!-- FIXED: Removed nested audio tag and ensured ID is unique -->
-<audio id="bgMusic" loop>
-  <source src="04._-_George_Benson_-_Nothing_s_Gonna_Change_My_Love_For_You_(mp3.pm).mp3" type="audio/mpeg">
-</audio>
+<!-- HIDDEN YOUTUBE PLAYER -->
+<div id="yt-player"></div>
 
 <script>
 let score = 0;
+var player;
+
+// 1. Load the YouTube IFrame API
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+// 2. Create the YouTube player object
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('yt-player', {
+    height: '0',
+    width: '0',
+    videoId: '4tf0ZjN1UPE', // Your George Benson link ID
+    playerVars: {
+      'autoplay': 0,
+      'loop': 1,
+      'playlist': '4tf0ZjN1UPE'
+    }
+  });
+}
 
 function startGame() {
-  // FIXED: Trigger music play here on user interaction
-  let music = document.getElementById("bgMusic");
-  music.play().catch(error => {
-    console.log("Audio failed to play. Check file path or console for errors.");
-  });
+  // Start music using YouTube API on user click
+  if (player && player.playVideo) {
+    player.playVideo();
+  }
 
   document.getElementById("intro").style.display = "none";
   document.getElementById("startBtn").style.display = "none";
