@@ -82,6 +82,7 @@ button {
 let score = 0;
 
 function startGame() {
+  document.getElementById("bgMusic").play(); // <--- Add this line
   document.getElementById("intro").style.display = "none";
   document.getElementById("startBtn").style.display = "none";
   document.getElementById("game").style.display = "block";
